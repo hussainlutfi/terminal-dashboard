@@ -1,9 +1,5 @@
-"use client";
 import QuestionTable from "@/components/table";
 import { Tajawal } from "next/font/google";
-import { useEffect } from "react";
-import { isLogin } from "./auth";
-import { useRouter } from "next/navigation";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -12,18 +8,6 @@ const tajawal = Tajawal({
 });
 
 export default function Home() {
-  const router = useRouter();
-  useEffect(() => {
-    checkAuth();
-  });
-
-  async function checkAuth() {
-    if (await isLogin()) {
-      router.push("/questions");
-    }
-    router.push("/login");
-  }
-
   return (
     <main
       dir="rtl"
@@ -31,7 +15,7 @@ export default function Home() {
     >
       <div className="w-full bg-gradient-to-br from-[#51170e] to-[#031020] ">
         <div className="flex flex-col items-center justify-center pt-16 sm:pt-16">
-          <p className="text-9xl font-extrabold">حياك الله 🙋‍♂️</p>
+          <QuestionTable />
         </div>
       </div>
     </main>

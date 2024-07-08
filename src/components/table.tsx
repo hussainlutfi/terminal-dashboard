@@ -6,15 +6,9 @@ import Swal from "sweetalert2";
 
 import { useRouter } from "next/navigation";
 
-const initialData: Question[] = [
-  { id: 1, created_at: "2023-01-01", question: "What is your name?" },
-  { id: 2, created_at: "2023-01-02", question: "How old are you?" },
-  // Add more initial data as needed
-];
-
 export default function QuestionTable() {
   const supabase = createClient();
-  const [questions, setQuestions] = useState<Question[]>(initialData);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter();
 
   useEffect(() => {
