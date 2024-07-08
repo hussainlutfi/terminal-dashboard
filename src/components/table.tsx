@@ -38,9 +38,9 @@ export default function QuestionTable() {
       if (result.isConfirmed) {
         setQuestions(questions!.filter((q) => q.id !== id));
         const { error } = await supabase
-          .from("question-input")
-          .delete()
-          .eq("id", id);
+        .from("question-input")
+        .delete()
+        .eq("id", id);
 
         Swal.fire({
           title: "Deleted!",

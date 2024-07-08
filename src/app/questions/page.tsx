@@ -1,5 +1,9 @@
+"use client";
 import QuestionTable from "@/components/table";
 import { Tajawal } from "next/font/google";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { isLogin } from "../auth";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -8,6 +12,8 @@ const tajawal = Tajawal({
 });
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <main
       dir="rtl"
