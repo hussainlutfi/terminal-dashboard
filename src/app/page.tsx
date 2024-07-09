@@ -20,8 +20,9 @@ export default function Home() {
   async function checkAuth() {
     if (await isLogin()) {
       router.push("/questions");
+    } else {
+      router.push("/login");
     }
-    router.push("/login");
   }
 
   return (

@@ -5,11 +5,11 @@ import { LoginData } from "./../../interfaces/auth";
 const supabase = createClient();
 
 export async function isLogin() {
-  const { data, error } = await supabase.auth.getUser();
-  if (data) {
-    return true;
+  const { data, error } = await supabase.auth.getSession();
+  if (error || !data.session) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 export async function Login(params: LoginData) {
