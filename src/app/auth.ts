@@ -20,3 +20,12 @@ export async function Login(params: LoginData) {
 
   return true;
 }
+
+export async function Logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    return false;
+  }
+
+  return true;
+}
