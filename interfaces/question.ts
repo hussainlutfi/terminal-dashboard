@@ -7,6 +7,5 @@ export interface Question {
 export interface QAInput {
   question: string;
   answer: string;
-  duration: string;
   type: string;
 }

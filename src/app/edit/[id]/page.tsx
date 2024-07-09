@@ -50,7 +50,6 @@ export default function EditPage({ params }: { params: { id: string } }) {
     const input: QAInput = {
       question,
       answer,
-      duration: radioSelection,
       type: selectedOption,
     };
     const table: string = radioSelection.includes("قبل")
