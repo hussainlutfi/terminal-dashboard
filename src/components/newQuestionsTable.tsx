@@ -4,12 +4,13 @@ import { Question } from "../../interfaces/question";
 import { createClient } from "../../utils/supabase/client";
 import Swal from "sweetalert2";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function QuestionTable() {
   const supabase = createClient();
   const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     getQuestions();
@@ -38,9 +39,9 @@ export default function QuestionTable() {
       if (result.isConfirmed) {
         setQuestions(questions!.filter((q) => q.id !== id));
         const { error } = await supabase
-        .from("question-input")
-        .delete()
-        .eq("id", id);
+          .from("question-input")
+          .delete()
+          .eq("id", id);
 
         Swal.fire({
           title: "Deleted!",
@@ -54,7 +55,7 @@ export default function QuestionTable() {
   };
 
   const handleRowClick = (id: number) => {
-    router.push(`/edit/${id}`);
+    router.push(`${pathname}/${id}`);
   };
 
   return (
