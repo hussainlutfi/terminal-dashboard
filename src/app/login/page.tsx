@@ -37,7 +37,7 @@ export default function LoginPage() {
         showConfirmButton: false,
         timer: 1500,
       });
-      router.push("/questions");
+      router.push("/");
     } else {
       Swal.fire({
         icon: "error",
