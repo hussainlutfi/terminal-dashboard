@@ -1,7 +1,7 @@
 import { selectionElement } from "../interfaces/form";
 
 export const options: selectionElement = {
-  optionsAfter: [
+  optionsBefore: [
     "المصطلحات",
     "الموزونة",
     "الابتعاث",
@@ -9,7 +9,7 @@ export const options: selectionElement = {
     "الصحة النفسية",
     "أخرى",
   ],
-  optionsBefore: [
+  optionsAfter: [
     "اللغة",
     "التحضيري",
     "الانتساب والتعلم عن بعد",
