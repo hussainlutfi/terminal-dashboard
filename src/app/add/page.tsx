@@ -54,6 +54,7 @@ export default function AddPage() {
         showConfirmButton: false,
         timer: 1500,
       });
+      router.back();
     }
   };
 
