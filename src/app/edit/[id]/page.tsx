@@ -7,6 +7,7 @@ import { Tajawal } from "next/font/google";
 import { options } from "../../../../data/options";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { QAIEmail } from "../../../../interfaces/form";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -37,12 +38,14 @@ export default function EditPage({ params }: { params: { id: string } }) {
       throw new Error("No questionInput");
     }
     setQuestion(data[0].question);
+    
   }
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRadioSelection(e.target.value);
     setSelectedOption(""); // Reset the select element when radio button changes
   };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,6 +74,7 @@ export default function EditPage({ params }: { params: { id: string } }) {
         showConfirmButton: false,
         timer: 1500,
       });
+
     }
   };
 

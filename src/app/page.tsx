@@ -1,10 +1,11 @@
 "use client";
 import { Tajawal } from "next/font/google";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { isLogin } from "./auth";
 import { useRouter } from "next/navigation";
 import MainSquares from "@/components/main-squares";
 import QuestionSquare from "@/components/question-input";
+import { Session } from "@supabase/supabase-js";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -13,14 +14,31 @@ const tajawal = Tajawal({
 });
 
 export default function Home() {
+  const [session, setSession] = useState<Session | null>(null); // Initialize to null
+  const [role, setRole] = useState<string | undefined>(undefined);
   const router = useRouter();
+
   useEffect(() => {
-    checkAuth();
+    getSession();
   }, []);
 
-  async function checkAuth() {
-    if (!(await isLogin())) {
+  useEffect(() => {
+    if (session) {
+      checkAuth();
+    }
+  }, [session]);
+
+  async function getSession() {
+    const currentSession = await isLogin();
+    setSession(currentSession);
+  }
+
+  function checkAuth() {
+    if (!session) {
       router.push("/login");
+    } else {
+      const userRole = session.user.role;
+      setRole(userRole);
     }
   }
 
@@ -31,8 +49,12 @@ export default function Home() {
     >
       <div className="w-full bg-gradient-to-br from-[#51170e] to-[#031020] ">
         <div className="flex flex-col items-center justify-center pt-16 sm:pt-16">
-          <MainSquares />
-          <QuestionSquare />
+          {role === "authenticated" && (
+            <>
+              <MainSquares />
+              <QuestionSquare />
+            </>
+          )}
         </div>
       </div>
     </main>

@@ -1,15 +1,16 @@
 import Swal from "sweetalert2";
 import { createClient } from "../../utils/supabase/client";
 import { LoginData } from "./../../interfaces/auth";
+import { Session } from "@supabase/supabase-js";
 
 const supabase = createClient();
 
-export async function isLogin() {
+export async function isLogin(): Promise<Session | null> {
   const { data, error } = await supabase.auth.getSession();
-  if (error || !data.session) {
-    return false;
+  if (error) {
+    throw new Error("Couldn't check login");
   }
-  return true;
+  return data.session;
 }
 
 export async function Login(params: LoginData) {

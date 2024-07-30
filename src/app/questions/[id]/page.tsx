@@ -7,6 +7,7 @@ import { Tajawal } from "next/font/google";
 import { options } from "../../../../data/options";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { QAIEmail } from "../../../../interfaces/form";
 
 const tajawal = Tajawal({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function AddPage({ params }: { params: { id: string } }) {
   const [answer, setAnswer] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [radioSelection, setRadioSelection] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const router = useRouter();
 
   const supabase = createClient();
@@ -37,6 +39,7 @@ export default function AddPage({ params }: { params: { id: string } }) {
       throw new Error("No questionInput");
     }
     setQuestion(data[0].question);
+    setEmail(data[0].sender_email);
   }
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +74,7 @@ export default function AddPage({ params }: { params: { id: string } }) {
         showConfirmButton: false,
         timer: 1500,
       });
+      sendEmail();
     }
   };
 
@@ -85,6 +89,34 @@ export default function AddPage({ params }: { params: { id: string } }) {
       router.back();
     }
   }
+  const sendEmail = async () => {
+    const data: QAIEmail = { answer, question, email };
+
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        // Handle the error response
+        const errorData = await response.json();
+        console.error("Error:", errorData);
+        // You can also display an error message to the user here
+      } else {
+        // Handle the success response
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+        // You can also display a success message to the user here
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      // Handle the fetch error here, e.g., display an error message to the user
+    }
+  };
 
   return (
     <div
