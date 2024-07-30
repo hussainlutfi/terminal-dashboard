@@ -6,8 +6,7 @@ import Swal from "sweetalert2";
 
 import { useRouter, usePathname } from "next/navigation";
 
-
-export default function QuestionTable() {
+export default function MajorTable() {
   const supabase = createClient();
   const [questions, setQuestions] = useState<Question[]>([]);
   const router = useRouter();
@@ -18,7 +17,10 @@ export default function QuestionTable() {
   }, []);
 
   async function getQuestions() {
-    const { data, error } = await supabase.from("question-input").select("*");
+    const { data, error } = await supabase
+      .from("question-major-input")
+      .select("*")
+      .is("answer", null);
 
     if (error) {
       throw new Error("Not Reading");
@@ -40,7 +42,7 @@ export default function QuestionTable() {
       if (result.isConfirmed) {
         setQuestions(questions!.filter((q) => q.id !== id));
         const { error } = await supabase
-          .from("question-input")
+          .from("question-major-input")
           .delete()
           .eq("id", id);
 

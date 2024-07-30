@@ -37,7 +37,7 @@ export default function MainSquares() {
           </h1>
           <button
             className="bg-white h-[40%] w-[90%] rounded-3xl text-black text-1xl sm:text-2xl font-extrabold leading-normal sm:leading-tight tracking-tight text-center hover:bg-gray-200"
-            onClick={() => handleNavigation("/after")}
+            onClick={() => handleNavigation("/majors")}
           >
             باشوف 🫣
           </button>
