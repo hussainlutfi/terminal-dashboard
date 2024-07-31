@@ -49,12 +49,8 @@ export default function Home() {
     >
       <div className="w-full bg-gradient-to-br from-[#51170e] to-[#031020] ">
         <div className="flex flex-col items-center justify-center pt-16 sm:pt-16">
-          {role === "authenticated" && (
-            <>
-              <MainSquares />
-              <QuestionSquare />
-            </>
-          )}
+          <MainSquares />
+          <QuestionSquare />
         </div>
       </div>
     </main>
