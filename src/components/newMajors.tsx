@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Question } from "../../interfaces/question";
+import { QuestionMajor } from "../../interfaces/question";
 import { createClient } from "../../utils/supabase/client";
 import Swal from "sweetalert2";
 
@@ -8,7 +8,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 export default function MajorTable() {
   const supabase = createClient();
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<QuestionMajor[]>([]);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -69,6 +69,7 @@ export default function MajorTable() {
             <th className="px-4 py-2 font-bold">#</th>
             <th className="px-4 py-2 font-bold">التاريخ</th>
             <th className="px-4 py-2 font-bold">السؤال</th>
+            <th className="px-4 py-2 font-bold">التخصص</th>
             <th className="px-4 py-2 font-bold " />
             <th className="px-4 py-2 font-bold " />
           </tr>
@@ -85,6 +86,9 @@ export default function MajorTable() {
               </td>
               <td dir="rtl" className="border px-4 py-2  text-sm sm:text-xl">
                 {question.question}
+              </td>
+              <td dir="rtl" className="border px-4 py-2  text-sm sm:text-xl">
+                {question.major}
               </td>
               <td className=" border  px-2 py-2 items-center text-center text-red-500">
                 <p
